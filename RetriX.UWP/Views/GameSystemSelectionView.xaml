@@ -7,7 +7,9 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:views="using:MvvmCross.Uwp.Views"
-    xmlns:vm="using:RetriX.Shared.ViewModels"
+    xmlns:vm="using:RetriX.Shared.ViewModels" 
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
 
     <views:MvxWindowsPage.Resources>
@@ -71,31 +73,64 @@
         </DataTemplate>
 
         <Style x:Key="RootListStyle" TargetType="ListViewBase">
-            <Setter Property="SelectionMode" Value="None"/>
+            <Setter Property="SelectionMode" Value="Single"/>
             <Setter Property="IsItemClickEnabled" Value="True"/>
             <Setter Property="Grid.Row" Value="1"/>
+            <Setter Property="Background" Value="Transparent"/>
         </Style>
     </views:MvxWindowsPage.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource SystemControlBaseLowAcrylicWindowBrush}">
+        <Grid.Shadow>
+            <ThemeShadow/>
+        </Grid.Shadow>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <CommandBar Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-            <AppBarButton x:Uid="SettingsBtn" Icon="Setting" Command="{x:Bind VM.ShowSettings}"/>
-            <CommandBar.SecondaryCommands>
-                <AppBarButton x:Uid="AboutBtn" Command="{x:Bind VM.ShowAbout}"/>
-            </CommandBar.SecondaryCommands>
-        </CommandBar>
+
+        <muxc:MenuBar>
+            <muxc:MenuBarItem Title="File">
+                <MenuFlyoutItem Text="Settings" Command="{x:Bind VM.ShowSettings}"/>
+                <MenuFlyoutItem Text="Open..."/>
+                <MenuFlyoutItem Text="Save"/>
+                <MenuFlyoutItem Text="Exit"/>
+            </muxc:MenuBarItem>
+
+            <muxc:MenuBarItem Title="Edit">
+                <MenuFlyoutItem Text="Undo"/>
+                <MenuFlyoutItem Text="Cut"/>
+                <MenuFlyoutItem Text="Copy"/>
+                <MenuFlyoutItem Text="Paste"/>
+            </muxc:MenuBarItem>
+
+            <muxc:MenuBarItem Title="Help">
+                <MenuFlyoutItem Text="About" Command="{x:Bind VM.ShowAbout}"/>
+            </muxc:MenuBarItem>
+        </muxc:MenuBar>
+        <muxc:InfoBar
+    IsOpen="True"
+    Severity="Informational"
+    Title="Attention"
+        Message="RetriX requires separate BIOS for each platform. Add them in Settings." HorizontalAlignment="Center">
+    
+        </muxc:InfoBar>
         <ListView x:Name="GameSystemsList" ItemsSource="{x:Bind VM.GameSystems, Mode=OneWay}" ItemTemplate="{StaticResource GameSystemListItemDT}" Style="{StaticResource RootListStyle}">
+            <ListView.Projection>
+                <PlaneProjection RotationZ="1"/>
+            </ListView.Projection>
+
             <interactivity:Interaction.Behaviors>
                 <core:EventTriggerBehavior EventName="ItemClick">
                     <core:InvokeCommandAction Command="{x:Bind VM.GameSystemSelected}" InputConverter="{StaticResource ItemClickEventArgsConverter}"/>
                 </core:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
         </ListView>
-        <GridView x:Name="GameSystemsGrid" ItemsSource="{x:Bind VM.GameSystems, Mode=OneWay}" ItemTemplate="{StaticResource GameSystemGridItemDT}" Style="{StaticResource RootListStyle}" Visibility="Collapsed">
+        <GridView HorizontalAlignment="Center" x:Name="GameSystemsGrid" ItemsSource="{x:Bind VM.GameSystems, Mode=OneWay}" ItemTemplate="{StaticResource GameSystemGridItemDT}" Style="{StaticResource RootListStyle}" Visibility="Collapsed">
+            <GridView.Shadow>
+                <ThemeShadow/>
+            </GridView.Shadow>
             <interactivity:Interaction.Behaviors>
                 <core:EventTriggerBehavior EventName="ItemClick">
                     <core:InvokeCommandAction Command="{x:Bind VM.GameSystemSelected}" InputConverter="{StaticResource ItemClickEventArgsConverter}"/>

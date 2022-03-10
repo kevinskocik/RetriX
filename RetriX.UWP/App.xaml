@@ -2,13 +2,14 @@
     x:Class="RetriX.UWP.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:RetriX.UWP">
-    
+    xmlns:local="using:RetriX.UWP"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls">
     <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <local:AppResources/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <controls:XamlControlsResources>
+            <controls:XamlControlsResources.MergedDictionaries>
+                <!-- Other app resources here -->
+                    <local:AppResources/> 
+            </controls:XamlControlsResources.MergedDictionaries>
+        </controls:XamlControlsResources>
     </Application.Resources>
 </Application>

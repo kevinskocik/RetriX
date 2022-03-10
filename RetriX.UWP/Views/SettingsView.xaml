@@ -5,9 +5,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="using:MvvmCross.Uwp.Views"
-    xmlns:nmu="using:NavigationMenuUWP"
     xmlns:vm="using:RetriX.Shared.ViewModels"
     xmlns:controls="using:RetriX.UWP.Controls"
+        xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
 
     <views:MvxWindowsPage.Resources>
@@ -19,7 +20,7 @@
     <ScrollViewer Style="{StaticResource RootScrollViewerStyle}">
         <StackPanel Orientation="Vertical" Margin="{StaticResource DafaultContentMargin}">
             <TextBlock x:Uid="SettingsHeader" Style="{StaticResource PageHeaderTextBlockStyle}"/>
-            <TextBlock x:Uid="BiosFilesHeader" Style="{ThemeResource SubheaderTextBlockStyle}" Text="BiosFilesDesign" Margin="0,0,0,16"/>
+            <TextBlock x:Uid="BiosFilesHeader" Style="{ThemeResource SubheaderTextBlockStyle}" Text="BiosFilesDesign" />
             <ItemsControl ItemsSource="{x:Bind VM.FileDependencyImporters, Mode=OneWay}" ItemTemplate="{StaticResource FileImporterDT}" XYFocusKeyboardNavigation="Enabled" IsFocusEngagementEnabled="True"/>
         </StackPanel>
     </ScrollViewer>
