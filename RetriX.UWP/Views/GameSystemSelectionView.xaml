@@ -4,11 +4,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:views="using:MvvmCross.Uwp.Views"
-    xmlns:vm="using:RetriX.Shared.ViewModels" 
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:vm="using:RetriX.Shared.ViewModels"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
 
@@ -90,19 +90,12 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <muxc:MenuBar>
+        <muxc:MenuBar x:Name="Menu">
             <muxc:MenuBarItem Title="File">
                 <MenuFlyoutItem Text="Settings" Command="{x:Bind VM.ShowSettings}"/>
                 <MenuFlyoutItem Text="Open..."/>
                 <MenuFlyoutItem Text="Save"/>
                 <MenuFlyoutItem Text="Exit"/>
-            </muxc:MenuBarItem>
-
-            <muxc:MenuBarItem Title="Edit">
-                <MenuFlyoutItem Text="Undo"/>
-                <MenuFlyoutItem Text="Cut"/>
-                <MenuFlyoutItem Text="Copy"/>
-                <MenuFlyoutItem Text="Paste"/>
             </muxc:MenuBarItem>
 
             <muxc:MenuBarItem Title="Help">
@@ -114,7 +107,7 @@
     Severity="Informational"
     Title="Attention"
         Message="RetriX requires separate BIOS for each platform. Add them in Settings." HorizontalAlignment="Center">
-    
+
         </muxc:InfoBar>
         <ListView x:Name="GameSystemsList" ItemsSource="{x:Bind VM.GameSystems, Mode=OneWay}" ItemTemplate="{StaticResource GameSystemListItemDT}" Style="{StaticResource RootListStyle}">
             <ListView.Projection>
